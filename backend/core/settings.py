@@ -76,7 +76,13 @@ MIDDLEWARE = [
 
 
 ROOT_URLCONF = 'core.urls'
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOWED_ORIGINS = [
+    "https://promptstore-five.vercel.app",
+]
+CSRF_TRUSTED_ORIGINS = [
+    "https://promptstore-five.vercel.app",
+]
+
 
 TEMPLATES = [
     {
