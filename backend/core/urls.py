@@ -11,10 +11,16 @@ router = DefaultRouter()
 router.register("prompts", PromptViewSet, basename="prompt")
 router.register("orders", OrderViewSet, basename="order")
 
+from django.http import JsonResponse
+
+def index(request):
+    return JsonResponse({"status": "running", "msg": "PromptStore API working!"})
+
 urlpatterns = [
+    path("", index),  # <- add this line
     path("admin/", admin.site.urls),
-    path("api/auth/register/", RegisterView.as_view(), name="register"),
-    path("api/auth/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
-    path("api/auth/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
+    path("api/auth/register/", RegisterView.as_view()),
+    path("api/auth/token/", TokenObtainPairView.as_view()),
+    path("api/auth/token/refresh/", TokenRefreshView.as_view()),
     path("api/", include(router.urls)),
 ]
