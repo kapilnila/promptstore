@@ -24,26 +24,37 @@ export default function Prompts() {
     setForm({ ...form, [e.target.name]: e.target.value });
 
   const handleCreate = async (e) => {
-    e.preventDefault();
-    try {
-      await api.post("/prompts/", form);
-      setForm({ title: "", description: "", content: "", price: "", tags: "" });
-      loadPrompts();
-    } catch (err) {
-      console.error(err);
-      alert("Error (maybe you need to login)");
-    }
-  };
+  e.preventDefault();
+  if (!localStorage.getItem("access")) {
+    alert("Please login to publish a prompt");
+    return;
+  }
+
+  try {
+    await api.post("/prompts/", form);
+    alert("Prompt published!");
+    setForm({ title: "", description: "", content: "", price: "", tags: "" });
+    loadPrompts();
+  } catch (err) {
+    alert("Failed to create prompt");
+  }
+};
+
 
   const handleBuy = async (id) => {
-    try {
-      await api.post("/orders/", { prompt_id: id });
-      alert("Purchased (mock payment)!");
-    } catch (err) {
-      console.error(err);
-      alert("Error buying (login?)");
-    }
-  };
+  if (!localStorage.getItem("access")) {
+    alert("Please login to buy prompts");
+    return;
+  }
+
+  try {
+    await api.post("/orders/", { prompt_id: id });
+    alert("Purchase successful!");
+  } catch (err) {
+    alert("Failed to complete purchase");
+  }
+};
+
 
   return (
     <div>
