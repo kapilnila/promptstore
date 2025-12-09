@@ -11,8 +11,8 @@ A full-stack production-ready application built using Django REST Framework + Re
 
 🚀 Demo Links
 
-🔹 Frontend Live → <your-vercel-link>
-🔹 Backend API → <your-render-backend-link>
+🔹 Frontend Live → https://promptstore-five.vercel.app/
+🔹 Backend API → https://promptstore.onrender.com/admin/login/?next=/admin/
 
 🔥 Features
 👤 Authentication & Authorization
@@ -62,7 +62,7 @@ React Router
 
 Axios
 
-Netlify/Vercel deployment
+Vercel deployment
 
 Backend
 
@@ -82,23 +82,12 @@ Render (Backend + DB)
 
 Vercel / Netlify (Frontend)
 
-📁 Project Structure
-promptstore/
-│── backend/
-│   ├── backend/           # Django project root
-│   ├── prompts/           # Main app (CRUD + Payments)
-│   ├── venv/              # Virtual environment (ignored)
-│   └── manage.py
-│
-└── frontend/
-    ├── src/
-    │   ├── pages/         # Login, Register, PromptList, PromptForm
-    │   ├── services/      # Axios API wrapper
-    │   └── App.jsx
-    └── vite.config.js
+
 
 🚀 Local Development Setup
 📌 Backend Setup
+bash
+Copy code
 cd backend
 python -m venv venv
 source venv/bin/activate  # on Windows: venv\Scripts\activate
@@ -106,39 +95,40 @@ pip install -r requirements.txt
 python manage.py migrate
 python manage.py createsuperuser
 python manage.py runserver
-
-
 👉 API now runs on http://localhost:8000
 
 🔐 Environment Variables (Backend)
-
 Create .env in backend/
 
+ini
+Copy code
 SECRET_KEY=<your-secret-key>
 DATABASE_URL=<postgres-url-or-empty-for-sqlite>
 STRIPE_SECRET_KEY=<stripe-key>
 FRONTEND_URL=http://localhost:5173
 DEBUG=True
-
 🌐 Frontend Setup
+bash
+Copy code
 cd frontend
 npm install
 npm run dev
-
-
 👉 App runs at http://localhost:5173
 
 🧠 Frontend Environment Variables
-
 Create .env in frontend/
 
+ini
+Copy code
 VITE_API_URL=http://localhost:8000
-
 🛠 Build Commands
 Frontend Production Build:
+bash
+Copy code
 npm run build
-
 Collect static files for backend:
+bash
+Copy code
 python manage.py collectstatic
 
 🌍 Deployment Guide
@@ -169,70 +159,3 @@ Set environment:
 VITE_API_URL = https://your-backend-url.com
 
 
-Deploy
-
-🔑 API Endpoints
-Auth
-Method	Endpoint	Description
-POST	/api/auth/register/	Register user
-POST	/api/auth/token/	Login & get tokens
-POST	/api/auth/token/refresh/	Refresh access
-Prompts
-Method	Endpoint	Description
-GET	/api/prompts/	List all prompts
-POST	/api/prompts/	Create new prompt
-GET	/api/prompts/{id}/	Fetch prompt
-PUT/PATCH	/api/prompts/{id}/	Edit only if owner
-DELETE	/api/prompts/{id}/	Delete only if owner
-GET	/api/prompts/my_prompts/	Get logged-in user's prompts
-Payments
-Method	Endpoint	Description
-POST	/api/payments/checkout/	Create payment session
-
-Request:
-
-{
-  "prompt_id": 1
-}
-
-
-Response:
-
-{
-  "checkout_url": "https://checkout.stripe.com/..."
-}
-
-🧪 Testing Suggestions
-For auth:
-
-Test login → store JWT → GET protected resource
-
-For CRUD:
-
-Create prompt
-
-GET prompts
-
-PATCH prompt as owner
-
-DELETE prompt as owner
-
-DELETE prompt as non-owner (should fail)
-
-For payments:
-
-Hit /api/payments/checkout/
-
-Validate redirect URL works
-
-🧩 Future Improvements
-
-💡 Add categories, tags, and search filters
-💡 Add review & rating system
-💡 Add webhook to store successful orders
-💡 Allow authors to upload sample files
-💡 Dashboard for seller sales analytics
-
-📜 License
-
-This project is open-sourced under the MIT License.
